@@ -1,10 +1,6 @@
 /* =========================================
-   3-COLOR PALETTE:
-   1. Dark Sage Green:  #23382c
-   2. Dark Dusty Rose:  #8a4f56
-   3. Soft Off-White:   #f7f8f7
+   CLEAN PRESENTATION LAYOUT & NAVIGATION
    ========================================= */
-
 html {
   scroll-behavior: smooth;
 }
@@ -12,224 +8,234 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-color: #f7f8f7;
-  color: #23382c;
+  background-color: #f4f7fa;
+  color: #111827;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
-/* Top Bar with Left-Corner Menu */
-.site-header {
-  position: fixed;
+/* Header Bar */
+.csp-header {
+  position: sticky;
   top: 0;
-  left: 0;
   width: 100%;
-  height: 64px;
-  background-color: #23382c;
-  color: #f7f8f7;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 16px 40px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 22px;
   box-sizing: border-box;
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
 }
 
-.left-menu-btn {
-  background: transparent;
-  border: 1.5px solid rgba(247, 248, 247, 0.4);
-  color: #f7f8f7;
-  font-size: 1.45rem;
-  line-height: 1;
-  padding: 6px 12px;
-  border-radius: 6px;
+.csp-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.csp-menu-toggle {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111827;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  padding: 2px 6px;
+  line-height: 1;
 }
 
-.left-menu-btn:hover {
-  background-color: #8a4f56;
-  border-color: #8a4f56;
+.csp-menu-toggle:hover {
+  color: #2b6cb0;
 }
 
-.header-mini-title {
-  font-size: 0.85rem;
+.csp-brand {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #111827;
+  letter-spacing: -0.3px;
+}
+
+.csp-desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.csp-desktop-nav a {
+  text-decoration: none;
+  color: #1f2937;
+  font-size: 0.98rem;
   font-weight: 600;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  color: rgba(247, 248, 247, 0.85);
+  transition: color 0.2s ease;
 }
 
-/* Menu Drawer */
-.menu-drawer {
-  position: fixed;
-  top: 64px;
-  left: 0;
-  width: 100%;
-  background-color: #23382c;
-  border-top: 1px solid rgba(247, 248, 247, 0.15);
+.csp-desktop-nav a:hover {
+  color: #2b6cb0;
+}
+
+.csp-sep {
+  color: #cbd5e1;
+  font-weight: 400;
+}
+
+/* Slide-Down Menu Drawer */
+.csp-dropdown-menu {
   display: none;
   flex-direction: column;
-  align-items: center;
-  padding: 36px 20px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 14px 40px;
+  gap: 12px;
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.08);
+  position: sticky;
+  top: 65px;
   z-index: 999;
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
 }
 
-.menu-drawer.open {
+.csp-dropdown-menu.open {
   display: flex;
 }
 
-.menu-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.menu-list a {
+.csp-dropdown-menu a {
   text-decoration: none;
-  color: #f7f8f7;
-  font-size: 1.2rem;
+  color: #1f2937;
+  font-size: 1.05rem;
   font-weight: 600;
-  padding: 6px 16px;
-  border-radius: 6px;
-  transition: background-color 0.2s ease;
+  padding: 6px 0;
 }
 
-.menu-list a:hover {
-  background-color: #8a4f56;
+.csp-dropdown-menu a:hover {
+  color: #2b6cb0;
 }
 
-/* First Page: Centered Hero Section */
-.landing-hero {
-  min-height: 100vh;
-  background-color: #23382c;
-  color: #f7f8f7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 96px 24px 48px;
+/* Main Content Wrapper */
+.csp-main-wrapper {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 36px 40px 48px;
   box-sizing: border-box;
 }
 
-.landing-content {
-  max-width: 680px;
-  margin: 0 auto;
+/* Hero Block */
+.csp-hero {
+  margin-bottom: 36px;
 }
 
-.main-project-title {
-  font-size: 2.75rem;
+.csp-title {
+  font-size: 2.6rem;
   font-weight: 800;
-  color: #f7f8f7;
-  margin: 0 0 14px 0;
+  color: #111827;
+  margin: 0 0 6px 0;
   line-height: 1.15;
 }
 
-.side-heading {
-  font-size: 1.25rem;
+.csp-tagline {
+  font-size: 1.35rem;
   font-weight: 600;
-  color: #e3b7bc; /* Soft tint of Dusty Rose for readability on Dark Sage */
-  margin: 0 0 22px 0;
-  letter-spacing: 0.3px;
+  color: #2b6cb0;
+  margin: 0 0 12px 0;
 }
 
-.project-summary {
-  font-size: 1.02rem;
-  line-height: 1.7;
-  color: rgba(247, 248, 247, 0.9);
-  margin: 0 auto 34px auto;
-  max-width: 580px;
-}
-
-.discover-btn {
-  display: inline-block;
-  background-color: #8a4f56;
-  color: #f7f8f7;
-  text-decoration: none;
+.csp-description {
   font-size: 1rem;
+  line-height: 1.55;
+  color: #374151;
+  margin: 0 0 20px 0;
+  max-width: 960px;
+}
+
+.csp-discover-btn {
+  display: inline-block;
+  background-color: #2b6cb0;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.98rem;
   font-weight: 600;
-  padding: 15px 34px;
-  border-radius: 8px;
-  border: 2px solid #8a4f56;
-  transition: transform 0.15s ease, background-color 0.2s ease;
+  padding: 11px 22px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
-.discover-btn:hover {
-  background-color: #733f45;
-  border-color: #733f45;
-  transform: translateY(-2px);
+.csp-discover-btn:hover {
+  background-color: #1e4e8c;
+  transform: translateY(-1px);
 }
 
-/* Second Page: Why Gender Ratio Matters */
-.why-section {
-  min-height: 100vh;
-  background-color: #f7f8f7;
-  color: #23382c;
-  padding: 90px 24px;
-  box-sizing: border-box;
+/* Why Gender Ratio Matters */
+.csp-why-heading {
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #111827;
+  margin: 0 0 6px 0;
+}
+
+.csp-why-subtext {
+  font-size: 0.98rem;
+  color: #4b5563;
+  margin: 0 0 24px 0;
+}
+
+/* 2x2 Cards Grid */
+.csp-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.csp-info-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 22px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+.csp-card-icon {
+  width: 54px;
+  height: 54px;
+  min-width: 54px;
+  border-radius: 50%;
+  background-color: #2b6cb0;
+  color: #ffffff;
   display: flex;
   align-items: center;
+  justify-content: center;
+  margin-top: 2px;
 }
 
-.why-container {
-  max-width: 960px;
-  margin: 0 auto;
-  text-align: center;
+.csp-card-body h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 8px 0;
 }
 
-.why-main-heading {
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: #23382c;
-  margin: 0 0 16px 0;
-}
-
-.why-intro {
-  font-size: 1.05rem;
-  line-height: 1.65;
-  color: #3d5246;
-  max-width: 660px;
-  margin: 0 auto 44px auto;
-}
-
-.why-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 22px;
-  text-align: left;
-}
-
-.why-card {
-  background-color: #ffffff;
-  border-top: 4px solid #8a4f56;
-  border-radius: 10px;
-  padding: 24px;
-  box-shadow: 0 4px 16px rgba(35, 56, 44, 0.08);
-}
-
-.why-card h3 {
-  font-size: 1.1rem;
-  color: #8a4f56;
-  margin: 0 0 10px 0;
-}
-
-.why-card p {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: #23382c;
+.csp-card-body p {
+  font-size: 0.94rem;
+  line-height: 1.5;
+  color: #374151;
   margin: 0;
 }
 
-@media (max-width: 600px) {
-  .main-project-title {
-    font-size: 2.05rem;
+/* Responsive Adjustments */
+@media (max-width: 820px) {
+  .csp-header {
+    padding: 14px 20px;
   }
-  .why-main-heading {
-    font-size: 1.8rem;
+  .csp-desktop-nav {
+    display: none;
+  }
+  .csp-main-wrapper {
+    padding: 24px 20px 36px;
+  }
+  .csp-cards-grid {
+    grid-template-columns: 1fr;
+  }
+  .csp-title {
+    font-size: 2rem;
   }
 }
