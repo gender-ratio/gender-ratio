@@ -1,110 +1,87 @@
-<!-- TOP NAVIGATION BAR -->
-<header class="csp-header">
-  <div class="csp-header-left">
-    <button class="csp-menu-toggle" id="heroMenuBtn" aria-label="Toggle Menu">≡</button>
-    <span class="csp-brand">CSP • Education Equity</span>
-  </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gender Ratio in Schooling</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-  <!-- Desktop / Tablet Inline Navigation -->
-  <nav class="csp-desktop-nav">
-    <a href="#schools">Schools</a>
-    <span class="csp-sep">|</span>
-    <a href="#overall-view">Overall View</a>
-    <span class="csp-sep">|</span>
-    <a href="#why-it-matters">Our Project</a>
-    <span class="csp-sep">|</span>
-    <a href="#about-us">About Us</a>
-  </nav>
-</header>
+  <!-- NAVBAR -->
+  <header>
+    <div class="logo">🎓 Gender Ratio <span>in Schooling</span></div>
+    <nav>
+      <a href="#">Schools</a>
+      <a href="#">Overall View</a>
+      <a href="#">Our Project</a>
+      <a href="#">About Us</a>
+    </nav>
+  </header>
 
-<!-- DROPDOWN MENU (Toggled by ≡ button) -->
-<nav class="csp-dropdown-menu" id="heroDrawer">
-  <a href="#schools" onclick="closeHeroMenu()">Schools</a>
-  <a href="#overall-view" onclick="closeHeroMenu()">Overall View</a>
-  <a href="#why-it-matters" onclick="closeHeroMenu()">Our Project</a>
-  <a href="#about-us" onclick="closeHeroMenu()">About Us</a>
-</nav>
-
-<!-- MAIN PAGE CONTAINER -->
-<main class="csp-main-wrapper">
-
-  <!-- HERO SECTION -->
-  <section class="csp-hero" id="home">
-    <h1 class="csp-title">Gender Ratio in Schooling</h1>
-    <h2 class="csp-tagline">Equal Classrooms, Stronger Communities</h2>
-    <p class="csp-description">
-      A Community Service Project dedicated to tracking student enrollment, attendance, transfer, and dropout patterns across local schools—helping identify disparities and ensure equal educational opportunities for every learner.
-    </p>
-    <!-- Navigates directly to your Schools / Project section -->
-    <a href="#schools" class="csp-discover-btn">Discover Our Project</a>
-  </section>
-
-  <!-- WHY GENDER RATIO MATTERS SECTION -->
-  <section class="csp-why-section" id="why-it-matters">
-    <h2 class="csp-why-heading">Why Gender Ratio Matters</h2>
-    <p class="csp-why-subtext">
-      Monitoring the balance of girls and boys in classrooms goes beyond numbers—it reveals how accessible, safe, and supportive our education system truly is.
-    </p>
-
-    <div class="csp-cards-grid">
-      <!-- Card 1 -->
-      <div class="csp-info-card">
-        <div class="csp-card-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-        </div>
-        <div class="csp-card-body">
-          <h3>1. Early Detection of Dropouts</h3>
-          <p>Tracking year-over-year gender ratios highlights when and where students—specially girls—leave school early due to financial, social, or transport barriers.</p>
-        </div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <span class="badge">✦ CSP • EDUCATION EQUITY</span>
+      <h1>Gender Ratio <br>in Schooling</h1>
+      <p>Equal Classrooms, Stronger Communities</p>
+      <p class="desc">A Community Service Project dedicated to tracking student enrollment, attendance, transfer, and dropout patterns across local schools — helping identify disparities and ensure equal educational opportunities for every learner.</p>
+      <div class="buttons">
+        <button class="btn-dark">Explore Schools →</button>
+        <button class="btn-light">Our Project</button>
       </div>
-
-      <!-- Card 2 -->
-      <div class="csp-info-card">
-        <div class="csp-card-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-          </svg>
-        </div>
-        <div class="csp-card-body">
-          <h3>2. Equal Access &amp; Representation</h3>
-          <p>A balanced classroom ensures every child receives equal attention, mentorship, and confidence to pursue higher studies and STEM or leadership careers.</p>
-        </div>
+      <div class="stats">
+        <div><b id="schoolCount">0</b><span>Schools Tracked</span></div>
+        <div><b>1:1</b><span>Goal Ratio</span></div>
+        <div><b>100%</b><span>Equal Opportunity</span></div>
       </div>
-
-      <!-- Card 3 -->
-      <div class="csp-info-card">
-        <div class="csp-card-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-            <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-          </svg>
-        </div>
-        <div class="csp-card-body">
-          <h3>3. Targeted Scholarships &amp; Support</h3>
-          <p>Accurate school-level data helps communities, teachers, and policymakers direct scholarships, uniforms, and counseling to the schools that need them most.</p>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="csp-info-card">
-        <div class="csp-card-icon">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
-            <polyline points="17 6 23 6 23 12"></polyline>
-          </svg>
-        </div>
-        <div class="csp-card-body">
-          <h3>4. Stronger Economic &amp; Social Growth</h3>
-          <p>Educating all genders equally leads to healthier families, higher household incomes, and stronger long-term development across the entire community.</p>
-        </div>
+    </div>
+    <div class="hero-right">
+      <img src="images/deepika.jpg" alt="Students">
+      <div class="float-card">
+        <b>Gender Balance</b>
+        <p>Tracking for equal education</p>
+        <div class="bar"><div class="fill"></div></div>
+        <span>Balanced • 52% • 48%</span>
       </div>
     </div>
   </section>
 
-</main>
+  <!-- WHY MATTERS -->
+  <section class="why">
+    <span class="small">WHY IT MATTERS</span>
+    <h2>Why Gender Ratio Matters</h2>
+    <p class="sub">The ratio is more than just numbers, it reflects how accessible, safe, and supportive our education system is for every child.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="icon">⚠️</div>
+        <h3>Early Detection of Dropouts</h3>
+        <p>Tracking year-over-year ratios reveals when and where students leave school early, enabling timely interventions to prevent dropouts.</p>
+        <a href="#">Learn more →</a>
+      </div>
+      <div class="card">
+        <div class="icon">👥</div>
+        <h3>Equal Access & Representation</h3>
+        <p>A balanced classroom ensures every child receives equal attention, mentorship, and the confidence to pursue higher studies.</p>
+        <a href="#">Learn more →</a>
+      </div>
+      <div class="card">
+        <div class="icon">🎓</div>
+        <h3>Targeted Scholarships & Support</h3>
+        <p>Accurate, school-level data helps educators and policymakers direct scholarships and counseling to the schools that need them most.</p>
+        <a href="#">Learn more →</a>
+      </div>
+      <div class="card">
+        <div class="icon">📈</div>
+        <h3>Stronger Economic & Social Growth</h3>
+        <p>Educating all genders equally leads to healthier families, higher household incomes, and stronger long-term community development.</p>
+        <a href="#">Learn more →</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2026 Gender Ratio in Schooling | CSP Project</footer>
+  <script src="script.js"></script>
+</body>
+</html>
