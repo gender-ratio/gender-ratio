@@ -1,47 +1,59 @@
-<!-- TOP NAVIGATION BAR -->
-<header class="hero-navbar">
-  <div class="hero-brand">
-    <div class="hero-brand-icon">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-      </svg>
-    </div>
-    <span class="hero-brand-title">Gender Ratio in Schooling</span>
-  </div>
-
-  <button class="hero-menu-btn" id="heroMenuBtn" aria-label="Toggle Menu">☰</button>
+<!-- TOP BAR WITH MENU BUTTON ON LEFT CORNER -->
+<header class="site-header">
+  <button class="left-menu-btn" id="heroMenuBtn" aria-label="Open Menu">☰</button>
+  <span class="header-mini-title">CSP • Education Equity</span>
 </header>
 
-<!-- FULL-SCREEN MENU DRAWER -->
-<nav class="hero-drawer" id="heroDrawer">
-  <ul class="hero-nav-links">
-    <li><a href="#schools" class="active" onclick="closeHeroMenu()">Schools</a></li>
+<!-- SLIDE-DOWN MENU -->
+<nav class="menu-drawer" id="heroDrawer">
+  <ul class="menu-list">
+    <li><a href="#schools" onclick="closeHeroMenu()">Schools</a></li>
     <li><a href="#overall-view" onclick="closeHeroMenu()">Overall View</a></li>
-    <li><a href="#our-project" onclick="closeHeroMenu()">Our Project</a></li>
+    <li><a href="#why-it-matters" onclick="closeHeroMenu()">Our Project</a></li>
     <li><a href="#about-us" onclick="closeHeroMenu()">About Us</a></li>
   </ul>
 </nav>
 
-<!-- OPENING HERO PAGE -->
-<section class="hero-section" id="home">
-  <div class="hero-overlay"></div>
-  <div class="hero-content">
-    <div class="hero-pill">COMMUNITY SERVICE PROJECT • EDUCATION EQUITY</div>
+<!-- FIRST PAGE: CENTERED HERO SECTION -->
+<section class="landing-hero" id="home">
+  <div class="landing-content">
+    <h1 class="main-project-title">Gender Ratio in Schooling</h1>
+    <h2 class="side-heading">Equal Classrooms, Stronger Communities</h2>
+    <p class="project-summary">
+      A Community Service Project dedicated to tracking student enrollment, attendance, transfer, and dropout patterns across local schools—helping identify disparities and ensure equal educational opportunities for every learner.
+    </p>
+    <a href="#why-it-matters" class="discover-btn">Discover Our Project</a>
+  </div>
+</section>
 
-    <h1 class="hero-title">
-      Equal Classrooms,<br />
-      Stronger<br />
-      Communities
-    </h1>
-
-    <p class="hero-subtitle">
-      Analyzing student enrollment, attendance, transfer, and dropout trends across local schools to bridge the gender gap and support every learner's education.
+<!-- SECOND PAGE: WHY GENDER RATIO MATTERS -->
+<section class="why-section" id="why-it-matters">
+  <div class="why-container">
+    <h2 class="why-main-heading">Why Gender Ratio Matters</h2>
+    <p class="why-intro">
+      Monitoring the balance of girls and boys in classrooms goes beyond numbers—it reveals how accessible, safe, and supportive our education system truly is.
     </p>
 
-    <div class="hero-actions">
-      <a href="#schools" class="hero-btn hero-btn-primary">Explore Schools</a>
-      <a href="#our-project" class="hero-btn hero-btn-outline">Discover Our Project</a>
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>1. Early Detection of Dropouts</h3>
+        <p>Tracking year-over-year gender ratios highlights when and where students—especially girls—leave school early due to financial, social, or transport barriers.</p>
+      </div>
+
+      <div class="why-card">
+        <h3>2. Equal Access & Representation</h3>
+        <p>A balanced classroom ensures every child receives equal attention, mentorship, and confidence to pursue higher studies and STEM or leadership careers.</p>
+      </div>
+
+      <div class="why-card">
+        <h3>3. Targeted Scholarships & Support</h3>
+        <p>Accurate school-level data helps communities, teachers, and policymakers direct scholarships, uniforms, and counseling to the schools that need them most.</p>
+      </div>
+
+      <div class="why-card">
+        <h3>4. Stronger Economic & Social Growth</h3>
+        <p>Educating all genders equally leads to healthier families, higher household incomes, and stronger long-term development across the entire community.</p>
+      </div>
     </div>
   </div>
 </section>
