@@ -21,7 +21,7 @@ if (exploreBtn) {
 let projectBtn = document.querySelector(".btn-light");
 if (projectBtn) {
   projectBtn.addEventListener("click", () => {
-    alert("Our Project page - Coming soon!");
+    window.location.href = "project.html";
   });
 }
 
