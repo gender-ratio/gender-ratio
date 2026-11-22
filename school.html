@@ -1,70 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Analytics & Profile</title>
+
+    <title>Individual School Analysis</title>
+
     <link rel="stylesheet" href="style.css">
+
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
+
 <body>
 
+    <!-- NAVIGATION -->
     <nav class="navbar">
-        <div class="nav-brand" id="page-school-title">📊 School Profile</div>
-        <div class="nav-links">
-            <button class="nav-btn" onclick="window.location.href='index.html'">← Back to Dashboard</button>
+
+        <div class="nav-brand" id="page-school-title">
+            📊 School Profile
         </div>
+
+        <div class="nav-links">
+
+            <button class="nav-btn"
+                onclick="window.location.href='index.html'">
+                ← Back to Dashboard
+            </button>
+
+        </div>
+
     </nav>
 
+
     <main class="container">
-        <!-- 1. School Summary Card (At least 7 lines of analytical overview) -->
-        <div class="card summary-card">
-            <h2>Institutional Summary & Overview</h2>
+
+        <!-- SCHOOL SUMMARY -->
+        <section class="card summary-card">
+
+            <h2>🏫 Institutional Summary</h2>
+
             <p id="school-summary-text">
-                Loading comprehensive institutional analysis...
+                Loading school information...
             </p>
-        </div>
 
-        <!-- 2. Detailed Metrics Grid -->
-        <div class="metrics-grid">
-            <div class="card metric-box">
-                <h4>Attendance Rate</h4>
-                <p id="metric-attendance" class="metric-value">--</p>
-            </div>
-            <div class="card metric-box">
-                <h4>Transfer Rate</h4>
-                <p id="metric-transfer" class="metric-value">--</p>
-            </div>
-            <div class="card metric-box">
-                <h4>Dropout Rate</h4>
-                <p id="metric-dropout" class="metric-value">--</p>
-            </div>
-            <div class="card metric-box">
-                <h4>Gender Ratio (G/100B)</h4>
-                <p id="metric-ratio" class="metric-value">--</p>
-            </div>
-        </div>
+        </section>
 
-        <!-- 3. Real Bar Chart & Visualizations -->
-        <div class="card chart-card">
-            <h3>Enrollment & Demographic Bar Chart</h3>
+
+        <!-- BASIC STUDENT INFORMATION -->
+        <section class="card">
+
+            <h2>Student Enrollment Details</h2>
+
+            <div class="metrics-grid">
+
+                <div class="card metric-box">
+
+                    <h4>Total Students</h4>
+
+                    <p id="metric-total" class="metric-value">--</p>
+
+                </div>
+
+
+                <div class="card metric-box">
+
+                    <h4>Boys</h4>
+
+                    <p id="metric-boys" class="metric-value">--</p>
+
+                </div>
+
+
+                <div class="card metric-box">
+
+                    <h4>Girls</h4>
+
+                    <p id="metric-girls" class="metric-value">--</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- PERFORMANCE METRICS -->
+        <section class="card">
+
+            <h2>📈 School Performance Analysis</h2>
+
+            <div class="metrics-grid">
+
+                <div class="card metric-box">
+
+                    <h4>Attendance Rate</h4>
+
+                    <p id="metric-attendance" class="metric-value">
+                        --
+                    </p>
+
+                </div>
+
+
+                <div class="card metric-box">
+
+                    <h4>Transfer Rate</h4>
+
+                    <p id="metric-transfer" class="metric-value">
+                        --
+                    </p>
+
+                </div>
+
+
+                <div class="card metric-box">
+
+                    <h4>Dropout Rate</h4>
+
+                    <p id="metric-dropout" class="metric-value">
+                        --
+                    </p>
+
+                </div>
+
+
+                <div class="card metric-box">
+
+                    <h4>Gender Ratio</h4>
+
+                    <p id="metric-ratio" class="metric-value">
+                        --
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- STUDENT RECORD BREAKDOWN -->
+        <section class="card">
+
+            <h2>👨‍🎓 Student Records</h2>
+
+            <div class="metrics-grid">
+
+                <div class="card metric-box">
+
+                    <h4>Boys Enrolled</h4>
+
+                    <p id="record-boys">--</p>
+
+                </div>
+
+
+                <div class="card metric-box">
+
+                    <h4>Girls Enrolled</h4>
+
+                    <p id="record-girls">--</p>
+
+                </div>
+
+
+                <div class="card metric-box">
+
+                    <h4>Total Enrollment</h4>
+
+                    <p id="record-total">--</p>
+
+                </div>
+
+            </div>
+
+            <p id="gender-analysis-text">
+                Gender analysis will appear here.
+            </p>
+
+        </section>
+
+
+        <!-- BAR GRAPH -->
+        <section class="card chart-card">
+
+            <h2>📊 Boys vs Girls – Bar Graph</h2>
+
             <canvas id="schoolDetailChart"></canvas>
-        </div>
 
-        <!-- 4. Scholarships & Opportunities -->
-        <div class="card opportunities-card">
-            <h2>Scholarships, Government Schemes & Opportunities</h2>
-            <ul id="opportunities-list">
-                <!-- Dynamically populated schemes -->
+        </section>
+
+
+        <!-- PIE CHART -->
+        <section class="card chart-card">
+
+            <h2>🥧 Gender Distribution – Pie Chart</h2>
+
+            <canvas id="genderPieChart"></canvas>
+
+        </section>
+
+
+        <!-- SCHOLARSHIPS -->
+        <section class="card opportunities-card">
+
+            <h2>🎓 Scholarships & Government Schemes</h2>
+
+            <p>
+                Opportunities are listed according to the applicable
+                eligibility conditions. Gender alone does not guarantee
+                scholarship eligibility.
+            </p>
+
+            <h3>For Girl Students</h3>
+
+            <ul id="girls-schemes">
+
+                <li>
+                    Girl-child education support schemes, where available
+                    and applicable.
+                </li>
+
+                <li>
+                    State and central scholarships for eligible girl students.
+                </li>
+
             </ul>
-        </div>
 
-        <!-- 5. Individual Download Button -->
-        <div class="card download-card" style="text-align: center; padding: 20px;">
-            <button class="primary-btn download-btn" onclick="downloadSchoolReport()">📥 Download School Report (PDF/Summary)</button>
-        </div>
+
+            <h3>For Boy Students</h3>
+
+            <ul id="boys-schemes">
+
+                <li>
+                    Scholarships and educational support open to eligible
+                    boys under applicable schemes.
+                </li>
+
+            </ul>
+
+
+            <h3>For Both Boys and Girls</h3>
+
+            <ul id="common-schemes">
+
+                <li>
+                    National Means-cum-Merit Scholarship (NMMS), subject
+                    to eligibility.
+                </li>
+
+                <li>
+                    Applicable Pre-Matric and Post-Matric scholarships.
+                </li>
+
+                <li>
+                    Scholarships for eligible students with disabilities.
+                </li>
+
+                <li>
+                    Other state and central educational support schemes.
+                </li>
+
+            </ul>
+
+            <p>
+                <strong>Note:</strong> Always verify the current application
+                dates and eligibility conditions through official government
+                portals.
+            </p>
+
+        </section>
+
+
+        <!-- DOWNLOAD REPORT -->
+        <section class="card download-card">
+
+            <h2>📥 Download Individual School Report</h2>
+
+            <p>
+                Download the report of this school separately.
+            </p>
+
+            <button
+                class="primary-btn download-btn"
+                onclick="downloadSchoolReport()">
+
+                Download School Report
+
+            </button>
+
+        </section>
+
+
     </main>
 
+
+    <!-- MAIN JAVASCRIPT -->
     <script src="script.js"></script>
+
 </body>
+
 </html>

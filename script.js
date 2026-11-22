@@ -1,194 +1,665 @@
-// Initialize school records with robust default mock data if empty
-let schoolRecords = JSON.parse(localStorage.getItem('cspSchoolRecords')) || [
-    { name: "ZPHS Guntur Main", total: 320, boys: 160, girls: 160, attendance: "94%", transfer: "2%", dropout: "1%", summary: "ZPHS Guntur Main demonstrates exemplary gender parity with an equal distribution of male and female students across all academic streams. The institution maintains robust community engagement initiatives that actively encourage female retention in higher secondary grades. Regular health and nutritional support programs have contributed significantly to stable daily attendance records. Academic infrastructure is well-supported by state-sponsored digital classrooms and laboratory facilities. Remedial coaching classes are systematically organized for students needing extra scholastic support. Faculty members actively participate in gender-sensitization workshops to foster an inclusive learning environment. Overall, the school serves as a benchmark for educational equity and rural scholastic development." },
-    { name: "M.P.P. School Mangalagiri", total: 210, boys: 110, girls: 100, attendance: "91%", transfer: "3%", dropout: "2%", summary: "M.P.P. School Mangalagiri provides foundational primary education with a strong emphasis on early childhood learning outcomes. The enrollment metrics reflect a healthy gender balance, supported by active parental counseling campaigns. Mid-day meal distribution operates with high standards of hygiene, directly boosting student retention and daily attendance. Special scholarship advisories are regularly communicated to families to promote girl child education. Basic digital literacy tools have been successfully integrated into early grade classrooms. The school collaborates closely with local panchayat committees to address infrastructural needs promptly. Dedicated educators focus on holistic development through co-curricular and sports activities." }
+// ============================================
+// GENDER RATIO IN SCHOOLING
+// Main JavaScript File
+// ============================================
+
+// 1. LOAD EXISTING SCHOOL RECORDS
+
+const defaultSchools = [
+    {
+        name: "ZPHS Guntur Main",
+        total: 320,
+        boys: 160,
+        girls: 160,
+        attendance: "94%",
+        transfer: "2%",
+        dropout: "1%",
+        summary: "ZPHS Guntur Main demonstrates exemplary gender parity with an equal distribution of boys and girls. The institution maintains community engagement initiatives that encourage girls to continue their education. Health and nutritional support programs contribute to daily attendance. Academic infrastructure includes digital classrooms and laboratory facilities. Remedial coaching supports students who need additional academic assistance. Faculty members promote an inclusive learning environment. Overall, the school supports educational equity and rural development."
+    },
+    {
+        name: "M.P.P. School Mangalagiri",
+        total: 210,
+        boys: 110,
+        girls: 100,
+        attendance: "91%",
+        transfer: "3%",
+        dropout: "2%",
+        summary: "M.P.P. School Mangalagiri provides foundational primary education. Its enrollment reflects a relatively balanced gender distribution. Parental counselling supports student retention and attendance. Mid-day meal services encourage regular school participation. Scholarship information is shared with eligible families. Basic digital learning tools support classroom education. Teachers encourage holistic development through academic and extracurricular activities."
+    }
 ];
-localStorage.setItem('cspSchoolRecords', JSON.stringify(schoolRecords));
+
+let schoolRecords = [];
+
+try {
+    const savedData = JSON.parse(
+        localStorage.getItem("cspSchoolRecords")
+    );
+
+    schoolRecords = Array.isArray(savedData) && savedData.length > 0
+        ? savedData
+        : defaultSchools;
+
+} catch (error) {
+    schoolRecords = defaultSchools;
+}
+
+saveSchoolRecords();
 
 let isDeveloperMode = false;
 
-// Function to toggle Developer Mode with secure password
+
+// 2. SAVE SCHOOL DATA
+
+function saveSchoolRecords() {
+    localStorage.setItem(
+        "cspSchoolRecords",
+        JSON.stringify(schoolRecords)
+    );
+}
+
+
+// 3. DEVELOPER MODE
+
 function toggleDevMode() {
+
     if (!isDeveloperMode) {
-        let password = prompt("Enter Developer Password:");
-        if (password === "MySecretPassword123") {
-            isDeveloperMode = true;
-            alert("Developer Mode Enabled.");
-        } else {
+
+        const password = prompt("Enter Developer Password:");
+
+        if (password !== "MySecretPassword123") {
             alert("Incorrect Password! Access Denied.");
             return;
         }
+
+        isDeveloperMode = true;
+
+        alert("Developer Mode Enabled!");
+
     } else {
+
         isDeveloperMode = false;
-        alert("Developer Mode Disabled.");
+
+        alert("Developer Mode Disabled!");
     }
 
-    const devFormSection = document.getElementById('developer-form-section');
-    if (devFormSection) {
-        devFormSection.style.display = isDeveloperMode ? 'block' : 'none';
+    const formSection = document.getElementById(
+        "developer-form-section"
+    );
+
+    if (formSection) {
+        formSection.style.display =
+            isDeveloperMode ? "block" : "none";
+    }
+
+    const button = document.getElementById("dev-mode-btn");
+
+    if (button) {
+        button.textContent = isDeveloperMode
+            ? "Exit Developer Mode"
+            : "Developer Mode";
     }
 }
 
-// Render School Cards on Dashboard with Search Filter
+
+// 4. DISPLAY SCHOOL NAMES ONLY
+
 function renderDashboardSchools(filter = "") {
-    const container = document.getElementById('school-list-container');
+
+    const container = document.getElementById(
+        "school-list-container"
+    );
+
     if (!container) return;
 
-    container.innerHTML = '';
-    
-    const filtered = schoolRecords.filter(school => 
+    container.innerHTML = "";
+
+    const filteredSchools = schoolRecords.filter(school =>
         school.name.toLowerCase().includes(filter.toLowerCase())
     );
 
-    if (filtered.length === 0) {
-        container.innerHTML = `<p style="text-align:center; color: #777;">No schools found matching your search.</p>`;
+    if (filteredSchools.length === 0) {
+
+        container.textContent = "No schools found.";
+
         return;
     }
 
-    filtered.forEach((school, index) => {
+    filteredSchools.forEach(school => {
+
         const actualIndex = schoolRecords.indexOf(school);
-        const card = document.createElement('div');
-        card.className = 'school-item-card';
-        card.innerHTML = `
-            <h3>🏫 ${school.name}</h3>
-            <p><strong>Total Students:</strong> ${school.total} (Boys: ${school.boys}, Girls: ${school.girls})</p>
-            <button class="primary-btn" onclick="openSchoolProfile(${actualIndex})">View Detailed Report →</button>
-        `;
+
+        const card = document.createElement("div");
+
+        card.className = "school-item-card";
+
+        const button = document.createElement("button");
+
+        button.className = "primary-btn";
+
+        button.style.width = "100%";
+
+        button.textContent = "🏫 " + school.name;
+
+        button.onclick = function () {
+            openSchoolProfile(actualIndex);
+        };
+
+        card.appendChild(button);
+
         container.appendChild(card);
+
     });
 }
 
-// Search bar handler
+
+// 5. SCHOOL SEARCH
+
 function filterSchools() {
-    const query = document.getElementById('school-search-input').value;
-    renderDashboardSchools(query);
+
+    const searchInput = document.getElementById(
+        "school-search-input"
+    );
+
+    if (!searchInput) return;
+
+    renderDashboardSchools(searchInput.value);
 }
 
-// Navigate to detail page with selected school index
+
+// 6. OPEN INDIVIDUAL SCHOOL PAGE
+
 function openSchoolProfile(index) {
-    localStorage.setItem('activeSchoolIndex', index);
-    window.location.href = 'school.html';
+
+    if (!schoolRecords[index]) {
+        alert("School record not found.");
+        return;
+    }
+
+    localStorage.setItem("activeSchoolIndex", index);
+
+    window.location.href = "school.html";
 }
 
-// Form submission for adding records in Developer Mode
-const form = document.getElementById('school-form');
-if (form) {
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
+
+// 7. ADD NEW SCHOOL MANUALLY
+
+const schoolForm = document.getElementById("school-form");
+
+if (schoolForm) {
+
+    schoolForm.addEventListener("submit", function (event) {
+
+        event.preventDefault();
+
         if (!isDeveloperMode) {
-            alert("Developer Mode required to add records.");
+            alert("Please enable Developer Mode first.");
             return;
         }
 
-        const name = document.getElementById('school-name').value;
-        const total = parseInt(document.getElementById('total-students').value);
-        const boys = parseInt(document.getElementById('boys-count').value);
-        const girls = parseInt(document.getElementById('girls-count').value);
+        const name = document.getElementById(
+            "school-name"
+        ).value.trim();
+
+        const total = Number(document.getElementById(
+            "total-students"
+        ).value);
+
+        const boys = Number(document.getElementById(
+            "boys-count"
+        ).value);
+
+        const girls = Number(document.getElementById(
+            "girls-count"
+        ).value);
+
+        if (!name || total < 1 || boys < 0 || girls < 0) {
+            alert("Please enter valid school information.");
+            return;
+        }
 
         if (boys + girls !== total) {
-            alert("Total students must equal boys + girls count.");
+            alert("Total students must equal boys + girls.");
+            return;
+        }
+
+        const duplicate = schoolRecords.some(
+            school => school.name.toLowerCase() === name.toLowerCase()
+        );
+
+        if (duplicate) {
+            alert("This school is already registered.");
             return;
         }
 
         const newSchool = {
-            name, total, boys, girls,
-            attendance: "92%", transfer: "2%", dropout: "1%",
-            summary: `${name} is an active participant in community educational equity tracking. The institution demonstrates consistent enrollment patterns across demographics. Regular scholastic and health monitoring ensures steady student attendance. Faculty members maintain active engagement with parents to sustain low dropout figures. State-backed scholarship schemes are actively disbursed to eligible students. Extracurricular integration supports comprehensive youth development. The school continues to uphold robust standards of inclusive education.`
+            name: name,
+            total: total,
+            boys: boys,
+            girls: girls,
+
+            attendance: "Not provided",
+            transfer: "Not provided",
+            dropout: "Not provided",
+
+            transfers: 0,
+            dropouts: 0,
+
+            summary:
+                name + " is included in the Gender Ratio in Schooling study. " +
+                "The school provides educational services to students in its area. " +
+                "Student enrollment is recorded separately for boys and girls. " +
+                "Attendance information can be added for further analysis. " +
+                "Transfer records can help understand student movement. " +
+                "Dropout records can help identify students who leave education. " +
+                "The collected information supports educational planning and gender equality."
         };
 
         schoolRecords.push(newSchool);
-        localStorage.setItem('cspSchoolRecords', JSON.stringify(schoolRecords));
-        alert("School record added successfully!");
-        form.reset();
+
+        saveSchoolRecords();
+
+        alert("School added successfully!");
+
+        schoolForm.reset();
+
         renderDashboardSchools();
+
     });
+
 }
 
-// Initialize School Detail Page if on school.html
-function initSchoolProfilePage() {
-    const activeIndex = localStorage.getItem('activeSchoolIndex');
-    if (activeIndex === null) return;
 
-    const school = schoolRecords[activeIndex];
-    if (!school) return;
+// 8. IMPORT EXCEL OR CSV FILE
 
-    document.getElementById('page-school-title').innerText = `📊 ${school.name}`;
-    document.getElementById('school-summary-text').innerText = school.summary;
-    document.getElementById('metric-attendance').innerText = school.attendance || "93%";
-    document.getElementById('metric-transfer').innerText = school.transfer || "2%";
-    document.getElementById('metric-dropout').innerText = school.dropout || "1%";
-    
-    const ratio = ((school.girls / school.boys) * 100).toFixed(1);
-    document.getElementById('metric-ratio').innerText = `${ratio} / 100`;
+function importExcelFile() {
 
-    // Populate Scholarships & Opportunities
-    const oppList = document.getElementById('opportunities-list');
-    if (oppList) {
-        oppList.innerHTML = `
-            <li>🎓 <strong>National Means-cum-Merit Scholarship (NMMS):</strong> Financial support for meritorious students entering secondary grades.</li>
-            <li>📚 <strong>Jagananna Amma Vodi / State Free Textbook & Uniform Schemes:</strong> Direct benefit transfers and material incentives ensuring zero financial barrier for girl child education.</li>
-            <li>🚴 <strong>State Bicycle Distribution Scheme:</strong> Free bicycle provision for girl students residing in outlying rural habitations to improve retention.</li>
-            <li>💻 <strong>Digital Literacy & Skill Development Camps:</strong> Special weekend coding and foundational computer training modules.</li>
-        `;
+    if (!isDeveloperMode) {
+        alert("Developer Mode is required.");
+        return;
     }
 
-    // Render Real Bar Chart
-    const ctx = document.getElementById('schoolDetailChart');
-    if (ctx) {
-        new Chart(ctx, {
-            type: 'bar',
+    const fileInput = document.getElementById("excel-file");
+
+    if (!fileInput || !fileInput.files.length) {
+        alert("Please select an Excel or CSV file.");
+        return;
+    }
+
+    if (typeof XLSX === "undefined") {
+        alert("Excel library is not loaded. Check your internet connection.");
+        return;
+    }
+
+    const file = fileInput.files[0];
+
+    const reader = new FileReader();
+
+    reader.onload = function (event) {
+
+        try {
+
+            const workbook = XLSX.read(
+                event.target.result,
+                { type: "array" }
+            );
+
+            const sheet = workbook.Sheets[
+                workbook.SheetNames[0]
+            ];
+
+            const rows = XLSX.utils.sheet_to_json(sheet);
+
+            if (rows.length === 0) {
+                alert("The selected file has no records.");
+                return;
+            }
+
+            let added = 0;
+            let skipped = 0;
+
+            rows.forEach(row => {
+
+                const values = {};
+
+                Object.keys(row).forEach(key => {
+                    values[key.trim().toLowerCase().replace(/[\s_-]+/g, "")] = row[key];
+                });
+
+                const name = String(
+                    values.schoolname || values.school || values.name || ""
+                ).trim();
+
+                const total = Number(
+                    values.totalstudents ?? values.total ?? 0
+                );
+
+                const boys = Number(
+                    values.boys ?? values.boyscount ?? 0
+                );
+
+                const girls = Number(
+                    values.girls ?? values.girlscount ?? 0
+                );
+
+                if (
+                    !name ||
+                    !Number.isInteger(total) ||
+                    !Number.isInteger(boys) ||
+                    !Number.isInteger(girls) ||
+                    total < 1 ||
+                    boys < 0 ||
+                    girls < 0 ||
+                    boys + girls !== total
+                ) {
+                    skipped++;
+                    return;
+                }
+
+                const duplicate = schoolRecords.some(
+                    school => school.name.toLowerCase() === name.toLowerCase()
+                );
+
+                if (duplicate) {
+                    skipped++;
+                    return;
+                }
+
+                schoolRecords.push({
+                    name,
+                    total,
+                    boys,
+                    girls,
+
+                    attendance: values.attendance || "Not provided",
+                    transfer: values.transferrate || "Not provided",
+                    dropout: values.dropoutrate || "Not provided",
+
+                    transfers: Number(values.transfers || 0),
+                    dropouts: Number(values.dropouts || 0),
+
+                    summary:
+                        name + " is included in the school education analysis. " +
+                        "Its enrollment data is recorded for boys and girls. " +
+                        "Attendance monitoring helps understand student participation. " +
+                        "Transfer records help identify student movement. " +
+                        "Dropout monitoring supports student retention. " +
+                        "The school data contributes to gender equality analysis. " +
+                        "Further school information can be added by the administrator."
+                });
+
+                added++;
+
+            });
+
+            saveSchoolRecords();
+
+            renderDashboardSchools();
+
+            fileInput.value = "";
+
+            alert(
+                "Excel upload completed!\n" +
+                "Schools added: " + added +
+                "\nRows skipped: " + skipped
+            );
+
+        } catch (error) {
+
+            alert("Unable to read the file. Please check its format.");
+
+        }
+
+    };
+
+    reader.readAsArrayBuffer(file);
+
+}
+
+
+// 9. CALCULATE SCHOOL METRICS
+
+function getPercentage(value, total) {
+
+    if (!total || total <= 0) return "N/A";
+
+    return ((value / total) * 100).toFixed(1) + "%";
+
+}
+
+function getSchoolRatio(school) {
+
+    if (!school.boys) {
+        return school.girls > 0 ? "Girls only" : "N/A";
+    }
+
+    return ((school.girls / school.boys) * 100).toFixed(1)
+        + " girls per 100 boys";
+
+}
+
+
+// 10. INITIALIZE INDIVIDUAL SCHOOL PAGE
+
+function initSchoolProfilePage() {
+
+    const activeIndex = Number(
+        localStorage.getItem("activeSchoolIndex")
+    );
+
+    if (!Number.isInteger(activeIndex) || !schoolRecords[activeIndex]) {
+        const summary = document.getElementById("school-summary-text");
+
+        if (summary) {
+            summary.textContent = "Please return to the dashboard and select a school.";
+        }
+
+        return;
+    }
+
+    const school = schoolRecords[activeIndex];
+
+    const setText = (id, value) => {
+        const element = document.getElementById(id);
+        if (element) element.textContent = value;
+    };
+
+    setText("page-school-title", "📊 " + school.name);
+
+    setText("school-summary-text", school.summary);
+
+    setText(
+        "metric-attendance",
+        school.attendance || "Not provided"
+    );
+
+    setText(
+        "metric-transfer",
+        school.transfer || "Not provided"
+    );
+
+    setText(
+        "metric-dropout",
+        school.dropout || "Not provided"
+    );
+
+    setText("metric-ratio", getSchoolRatio(school));
+
+    // Gender enrollment chart
+
+    const chartCanvas = document.getElementById("schoolDetailChart");
+
+    if (chartCanvas && typeof Chart !== "undefined") {
+
+        if (window.schoolChart) {
+            window.schoolChart.destroy();
+        }
+
+        window.schoolChart = new Chart(chartCanvas, {
+
+            type: "bar",
+
             data: {
-                labels: ['Total Students', 'Boys Enrolled', 'Girls Enrolled'],
+                labels: ["Boys", "Girls"],
+
                 datasets: [{
-                    label: 'Count',
-                    data: [school.total, school.boys, school.girls],
-                    backgroundColor: ['#4f46e5', '#3b82f6', '#ec4899'],
-                    borderWidth: 1
+                    label: "Student Enrollment",
+
+                    data: [school.boys, school.girls],
+
+                    backgroundColor: [
+                        "#526B58",
+                        "#49343D"
+                    ],
+
+                    borderRadius: 8
                 }]
             },
+
             options: {
                 responsive: true,
+
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                },
+
                 scales: {
-                    y: { beginAtZero: true }
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
+
         });
+
     }
+
+    // Scholarship information
+
+    const opportunityList = document.getElementById(
+        "opportunities-list"
+    );
+
+    if (opportunityList) {
+
+        opportunityList.innerHTML = "";
+
+        const schemes = [
+            "National Means-cum-Merit Scholarship (NMMS): For eligible students based on the applicable examination and income criteria.",
+            "Pre-Matric and Post-Matric Scholarships: For eligible students under applicable central and state schemes.",
+            "Girls' education support: Check currently available state and central schemes specifically for eligible girl students.",
+            "Disability scholarships: Opportunities for eligible students with benchmark disabilities.",
+            "Other educational support: Check eligibility for textbooks, uniforms, transport and other state education benefits."
+        ];
+
+        schemes.forEach(scheme => {
+
+            const li = document.createElement("li");
+
+            li.textContent = scheme;
+
+            opportunityList.appendChild(li);
+
+        });
+
+    }
+
 }
 
-// Individual School Download Report Function
+
+// 11. INDIVIDUAL SCHOOL REPORT DOWNLOAD
+
 function downloadSchoolReport() {
-    const activeIndex = localStorage.getItem('activeSchoolIndex');
+
+    const activeIndex = Number(
+        localStorage.getItem("activeSchoolIndex")
+    );
+
     const school = schoolRecords[activeIndex];
-    if (!school) return;
 
-    const reportContent = `=== SCHOOL ANALYTIC REPORT ===\n` +
-                          `School Name: ${school.name}\n` +
-                          `Total Students: ${school.total}\n` +
-                          `Boys: ${school.boys} | Girls: ${school.girls}\n` +
-                          `Attendance Rate: ${school.attendance || '93%'}\n` +
-                          `Transfer Rate: ${school.transfer || '2%'}\n` +
-                          `Dropout Rate: ${school.dropout || '1%'}\n` +
-                          `Gender Ratio (Girls per 100 Boys): ${((school.girls / school.boys) * 100).toFixed(1)}\n\n` +
-                          `=== SUMMARY ===\n${school.summary}\n\n` +
-                          `=== SCHEMES & SCHOLARSHIPS ===\n- NMMS Scholarship\n- Amma Vodi / State Support Schemes\n- Free Bicycle Distribution Scheme`;
+    if (!school) {
+        alert("Please select a school first.");
+        return;
+    }
 
-    const blob = new Blob([reportContent], { type: 'text/plain' });
+    const report = `
+GENDER RATIO IN SCHOOLING
+SCHOOL ANALYTIC REPORT
+
+School Name: ${school.name}
+
+Total Students: ${school.total}
+Boys: ${school.boys}
+Girls: ${school.girls}
+
+Gender Ratio: ${getSchoolRatio(school)}
+
+Attendance Rate: ${school.attendance || "Not provided"}
+Transfer Rate: ${school.transfer || "Not provided"}
+Dropout Rate: ${school.dropout || "Not provided"}
+
+SCHOOL SUMMARY
+
+${school.summary}
+
+Note: This report contains the selected school's information only.
+    `;
+
+    const blob = new Blob(
+        [report],
+        { type: "text/plain;charset=utf-8" }
+    );
+
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${school.name.replace(/\s+/g, '_')}_Report.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+
+    const link = document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+        school.name.replace(/[^a-z0-9]/gi, "_") + "_Report.txt";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+
+    alert("School report downloaded successfully!");
+
 }
 
-// Page Router Initialization
-document.addEventListener('DOMContentLoaded', () => {
-    if (document.getElementById('school-list-container')) {
+
+// 12. PAGE INITIALIZATION
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    if (document.getElementById("school-list-container")) {
         renderDashboardSchools();
     }
-    if (document.getElementById('school-summary-text')) {
+
+    if (document.getElementById("school-summary-text")) {
         initSchoolProfilePage();
     }
+
 });
+// Mobile Menu Toggle for Opening Page
+const heroMenuBtn = document.getElementById('heroMenuBtn');
+const heroDrawer = document.getElementById('heroDrawer');
+
+if (heroMenuBtn && heroDrawer) {
+  heroMenuBtn.addEventListener('click', () => {
+    const isOpen = heroDrawer.classList.toggle('open');
+    heroMenuBtn.textContent = isOpen ? '✕' : '☰';
+  });
+}
+
+function closeHeroMenu() {
+  if (heroDrawer && heroMenuBtn) {
+    heroDrawer.classList.remove('open');
+    heroMenuBtn.textContent = '☰';
+  }
+}

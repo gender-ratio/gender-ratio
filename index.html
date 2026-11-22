@@ -1,67 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gender Ratio in Schooling - Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<!-- TOP NAVIGATION BAR -->
+<header class="hero-navbar">
+  <div class="hero-brand">
+    <div class="hero-brand-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+      </svg>
+    </div>
+    <span class="hero-brand-title">Gender Ratio in Schooling</span>
+  </div>
 
-    <!-- Navigation Bar -->
-    <nav class="navbar">
-        <div class="nav-brand">📊 Gender Ratio Project</div>
-        <div class="nav-links">
-            <button class="nav-btn active" onclick="showDashboard()">Dashboard</button>
-            <button id="dev-mode-btn" class="dev-btn" onclick="toggleDevMode()">Developer Mode</button>
-        </div>
-    </nav>
+  <button class="hero-menu-btn" id="heroMenuBtn" aria-label="Toggle Menu">☰</button>
+</header>
 
-    <!-- Dashboard Section -->
-    <main class="container">
-        <header class="hero">
-            <h1>School Directory & Analytics Dashboard</h1>
-            <p>Select a school to view comprehensive enrollment, equity metrics, scholarships, and download reports.</p>
-        </header>
+<!-- FULL-SCREEN MENU DRAWER -->
+<nav class="hero-drawer" id="heroDrawer">
+  <ul class="hero-nav-links">
+    <li><a href="#schools" class="active" onclick="closeHeroMenu()">Schools</a></li>
+    <li><a href="#overall-view" onclick="closeHeroMenu()">Overall View</a></li>
+    <li><a href="#our-project" onclick="closeHeroMenu()">Our Project</a></li>
+    <li><a href="#about-us" onclick="closeHeroMenu()">About Us</a></li>
+  </ul>
+</nav>
 
-        <!-- Developer Mode Form (Hidden by Default, Password Protected) -->
-        <div id="developer-form-section" class="card form-card" style="display: none;">
-            <h3>Add New School Record (Admin Only)</h3>
-            <form id="school-form">
-                <div class="form-group">
-                    <label for="school-name">School / Village Name:</label>
-                    <input type="text" id="school-name" placeholder="e.g., ZPHS Guntur" required>
-                </div>
-                <div class="form-group">
-                    <label for="total-students">Total Students:</label>
-                    <input type="number" id="total-students" min="1" required>
-                </div>
-                <div class="form-group">
-                    <label for="boys-count">Boys Count:</label>
-                    <input type="number" id="boys-count" min="0" required>
-                </div>
-                <div class="form-group">
-                    <label for="girls-count">Girls Count:</label>
-                    <input type="number" id="girls-count" min="0" required>
-                </div>
-                <button type="submit" class="primary-btn">Save School Record</button>
-            </form>
-        </div>
+<!-- OPENING HERO PAGE -->
+<section class="hero-section" id="home">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-pill">COMMUNITY SERVICE PROJECT • EDUCATION EQUITY</div>
 
-        <!-- Search Bar Section -->
-        <div class="card search-card">
-            <input type="text" id="school-search-input" placeholder="🔍 Search schools by name or village..." onkeyup="filterSchools()">
-        </div>
+    <h1 class="hero-title">
+      Equal Classrooms,<br />
+      Stronger<br />
+      Communities
+    </h1>
 
-        <!-- School List Grid / Cards -->
-        <div class="card list-card">
-            <h3>Registered Schools</h3>
-            <div id="school-list-container" class="school-grid">
-                <!-- Dynamically populated school list items -->
-            </div>
-        </div>
-    </main>
+    <p class="hero-subtitle">
+      Analyzing student enrollment, attendance, transfer, and dropout trends across local schools to bridge the gender gap and support every learner's education.
+    </p>
 
-    <script src="script.js"></script>
-</body>
-</html>
+    <div class="hero-actions">
+      <a href="#schools" class="hero-btn hero-btn-primary">Explore Schools</a>
+      <a href="#our-project" class="hero-btn hero-btn-outline">Discover Our Project</a>
+    </div>
+  </div>
+</section>
